@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { FileUploader } from "react-drag-drop-files";
+import ResultTable from "./ResultTable.js";
+import { Box } from "@mui/material";
 
-function App() {
+import "./App.css";
+export default function App() {
+  const [file, setFile] = useState(null);
+  const handleChange = (file) => {
+    setFile(file);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="wrapper">
+        <div>
+          <h1>Upload a video</h1>
+          <FileUploader
+            multiple={true}
+            handleChange={handleChange}
+            name="file"
+          />
+          <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
+        </div>
+        <div>
+          <button class="button-26" role="button">
+            Submit
+          </button>
+        </div>
+
+        <div className="output">
+          <h1>Results</h1>
+          <Box>
+            <ResultTable />
+          </Box>
+        </div>
+      </div>
+    </>
   );
 }
-
-export default App;
